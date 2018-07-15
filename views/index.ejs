@@ -10,15 +10,21 @@
     <p>Welcome to <%= title %></p>
     <button id="btn_div_cadastrar">cadastrar</button>
     <button id="btn_div_funcionarios">funcionarios</button>
+    <button id="btn_div_clientes">clientes</button>
     <button id="btn_div_compra">compra</button>
 
     <% include partials/cadastrar %>
     <% include partials/funcionarios %>
+    <% include partials/clientes %>
 
     <div id="div_compra">
       <h3>compra</h3>
       <select id="select_cliente">
         <option>cliente</option>
+      </select>
+      <select id="select_funcionario">
+          <option>funcionario</option>
+        </select>
         <div id="div_funcionarios">      
             <table id="tabela_compra">
                 <tr>
@@ -29,12 +35,12 @@
                   <th>Data de Admissão</th>
                   <th>Senha de Acesso</th>
                 </tr>
-    
+  
               </table>
         </div>
         <button id="btn_add_produto">adicionar</button>
+        
 
-      </select>
     </div>
 
     <script src="../jquery/dist/jquery.min.js"></script>

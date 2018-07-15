@@ -1,5 +1,5 @@
 <div id="div_cadastrar">
-        <form style="border:2px solid black">
+        <form id="form_cli" style="border:2px solid black">
           <h2>cliente</h2>
           <input type="text" id="cli_nome">
           <input type="text" id="cli_cpf">
@@ -7,10 +7,10 @@
           <input type="date" id="cli_dataNascimento">
           <input type="text" id="cli_telefone1">
           <input type="text" id="cli_telefone2">
-          <button id="cli_cadastrar">cadastrar</button>
+          <button id="btn_cli_cadastrar">cadastrar</button>
         </form>
     
-        <form style="border:2px solid black">
+        <form id="form_fun" style="border:2px solid black">
             <h2>funcionario</h2>
             <input type="text" id="fun_nome">
             <input type="text" id="fun_cpf">
@@ -18,16 +18,17 @@
             <input type="date" id="fun_dataAdmissao">
             <input type="text" id="fun_senhaAcesso">
             
-            <button id="fun_cadastrar">cadastrar</button>
-          </form>
+            <button id="btn_fun_cadastrar">cadastrar</button>
+            <button id="btn_fun_editar">editar</button>
+        </form>
     
-          <form style="border:2px solid black">
+          <form id="form_pro" style="border:2px solid black">
               <h2>produto</h2>
               <input type="text" id="pro_descricao">
               <input type="text" id="pro_valor">
               <input type="number" id="pro_saldoEstoque">
               
-              <button id="pro_cadastrar">cadastrar</button>
+              <button id="btn_pro_cadastrar">cadastrar</button>
             </form>
           </div>
         
