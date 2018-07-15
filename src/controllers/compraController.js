@@ -1,18 +1,18 @@
-let ClienteModel = require('../models/cliente');
+let CompraModel = require('../models/compra');
 let createQuery = require('../helpers/createQuery');
 let saveDados = require('../helpers/saveDados');
 let createTable = require('../helpers/createTable');
 let con = require('../helpers/conexao');
 
-const TABELA = createTable.tablesNames.CLIENTE;
+const TABELA = createTable.tablesNames.COMPRA;
 
 module.exports = {
 
     add : function(obj){
 
-        let cliente = new ClienteModel(obj);
-        let colunas = cliente.getColuns();
-        let valores = cliente.getValues();
+        let compra = new CompraModel(obj);
+        let colunas = compra.getColuns();
+        let valores = compra.getValues();
 
         return new Promise((resolve, reject)=>{
 
@@ -25,15 +25,13 @@ module.exports = {
         })        
     },
 
-    get : function(id = false){
+    get : function(id){
 
-        let colunas = new ClienteModel().getColuns();
-        colunas.unshift('cli_id');
-        
+        let colunas = new CompraModel().getColuns();
         let tabela = TABELA;
 
         return new Promise((resolve, reject) =>{
-            createQuery.get(colunas, tabela, id)
+            createQuery.get(colunas, tabelas, id)
             .then((query) =>{
                 saveDados.getData(query)
                 .then((result) => resolve(result))
@@ -44,9 +42,9 @@ module.exports = {
 
     edit : function(obj, id){
 
-        let cliente = new ClienteModel(obj);
-        let colunas = cliente.getColuns();
-        let valores = cliente.getValues();
+        let compra = new CompraModel(obj);
+        let colunas = compra.getColuns();
+        let valores = compra.getValues();
 
         return new Promise((resolve, reject) =>{
 

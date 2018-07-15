@@ -1,13 +1,14 @@
 
-let Produto = function Produto(obj){
+let Compra = function Compra(obj){
 
-    const COLUNAS = ['pro_descricao','pro_valor', 'pro_saldoEstoque'];    
+    const COLUNAS = ['com_idFuncionario','com_idCliente', 'com_data', 'com_valorTotal'];    
 
     //let fun_id = obj.fun_id;
     if(obj){
-        let pro_descricao = obj.pro_valor;
-        let pro_valor = obj.pro_valor;
-        let pro_saldoEstoque = obj.pro_saldoEstoque;
+        let com_idFuncionario = obj.com_idFuncionario;
+        let com_idCliente = obj.com_idCliente;
+        let com_data = obj.com_data;
+        let com_valorTotal = obj.com_valorTotal;
     }
 
     this.getColuns = function(){
@@ -26,7 +27,7 @@ let Produto = function Produto(obj){
     }
 }
 
-module.exports = Produto;
+module.exports = Compra;
 
 /*let obj = {
      fun_id : '1',

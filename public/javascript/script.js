@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     $("#div_cadastrar").hide();
+    $("#div_funcionarios").hide();
 
     $.get('/funcionario', function(result,err){
         for(let func in result){
@@ -15,6 +16,22 @@ $(document).ready(function(){
                 </tr>`);
 
         }    
+    })
+
+    $.get('/cliente', function(result,err){
+        for(let func in result){
+            $("#select_cliente").append(`                              
+                <optgroup label="${result[func].cli_nome}">
+                    <option style="display:none" value="${result[func].cli_id}"></option>
+                    <option style="display:none" value="${result[func].cli_cpf}"></option>
+                    <option style="display:none" value="${result[func].cli_endereco}"></option>
+                    <option style="display:none" value="${result[func].cli_dataNascimento}"></option>
+                    <option style="display:none" value="${result[func].cli_telefone1}"></option>
+                    <option style="display:none" value="${result[func].cli_telefone2}"></option>
+                </optgroup>`);
+
+        } 
+        console.log(result);   
     })
 
     $("#btn_div_cadastrar").click(function(){
@@ -59,6 +76,7 @@ $(document).ready(function(){
         let obj = {
             pro_descricao : $("#pro_descricao").val(),
             pro_valor : Number.parseFloat($("#pro_valor").val().trim()),
+            pro_saldoEstoque : Number.parseInt($("#pro_saldoEstoque").val())
         }
         console.log(obj);
         $.post('/produto', obj, function(err, result){
