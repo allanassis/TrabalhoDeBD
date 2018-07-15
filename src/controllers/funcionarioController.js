@@ -54,7 +54,7 @@ module.exports = {
             .then((query) =>{
                 saveDados.editData(query)
                 .then((result) => resolve(result))
-                .catch((err) => reject(err))
+                .catch((err) =>   reject(err))
             })
         })        
     },

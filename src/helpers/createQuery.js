@@ -32,6 +32,9 @@ module.exports = {
 
     edit : function createQueryEdit(coluns, values, table, id)
             {
+                console.log(coluns);
+                console.log(values);
+                console.log(id)
                 if(id){
 
                     sqlStr = `UPDATE ${table} SET `;            

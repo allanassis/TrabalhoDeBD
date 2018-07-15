@@ -31,12 +31,4 @@ let Cliente = function Cliente(obj){
 
 module.exports = Cliente;
 
-let obj = {
-     cli_id : '1',
-     cli_nome : 'allan',
-     cli_cpf : '12345678',
-     cli_endereco : 'rua santos melo',
-     cli_dataNascimento : new Date(1996,05,14),
-     cli_telefone1 : '8898972384',
-     cli_telefone2 : '98457292393',
-}
+

@@ -20,5 +20,30 @@ router.get('/', function(req, res, next) {
   .catch((err) => console.log(err))
 });
 
+router.put('/', function(req, res, next) {
+  
+  console.log(req.body);
+
+  let cli = {
+    cli_nome : req.body.nome,
+    cli_cpf : req.body.cpf,
+    cli_endereco : req.body.endereco,
+    cli_dataNascimento : new Date(req.body.dataNascimento),
+    cli_telefone1 : req.body.telefone1,
+    cli_telefone2 : req.body.telefone2
+  }
+  let id = {
+    value : req.body.id,
+    name : req.body.idname
+  }
+  
+
+  clienteController.edit(cli, id)
+  .then((result)=>{
+     res.json(result);
+  })
+  .catch((err) => console.log(err))
+});
+
 
 module.exports = router;

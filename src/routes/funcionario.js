@@ -20,5 +20,25 @@ router.get('/', function(req, res, next) {
   .catch((err) => console.log(err))
 });
 
+router.put('/', function(req, res, next) {
+  
+  let fun = {
+    fun_nome : req.body.nome,
+    fun_cpf : req.body.cpf,
+    fun_tipo : req.body.tipo,
+    fun_dataAdmissao : new Date(req.body.dataAdmissao),
+    fun_senhaAcesso : req.body.senhaAcesso
+  }
+  let id = {
+    value : req.body.id,
+    name : req.body.idname
+  }
+  
+  funcionarioController.edit(fun, id)
+  .then((result)=>{
+     res.json(result);
+  })
+  .catch((err) => console.log(err))
+});
 
 module.exports = router;
