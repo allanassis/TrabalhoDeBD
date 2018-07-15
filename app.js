@@ -1,14 +1,32 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+let express = require('express');
+let path = require('path');
+let favicon = require('serve-favicon');
+let logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
 
-var index = require('./src/routes/index');
-var users = require('./src/routes/users');
+let con = require('./src/helpers/conexao');
+let createTable = require('./src/helpers/createTable');
 
-var app = express();
+let index = require('./src/routes/index');
+let users = require('./src/routes/users');
+let cliente = require('./src/routes/cliente');
+let funcionario = require('./src/routes/funcionario');
+let produto = require('./src/routes/produto');
+
+let app = express();
+
+con.connect((err) => {
+  if(err) console.log(err);
+
+  else{
+      console.log('conectado ao banco');
+
+      createTable.createAllTables().then(() =>{
+        console.log("tabelas criadas");
+      })
+    }
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,8 +39,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', index);
+app.use('/cliente', cliente);
+app.use('/funcionario', funcionario);
+app.use('/produto', produto);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

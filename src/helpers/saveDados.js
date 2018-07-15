@@ -1,4 +1,65 @@
-const db = require('mysql');
+let con = require('../helpers/conexao');
+
+module.exports = {
+    addData : function addData (query,getId = false){
+        return new Promise((resolve,reject) => {
+            con.query(query, (err, result) => {
+                if(err){                
+                    con.rollback()
+                    reject(err);
+                }
+                else{                
+                   resolve(getId == true ? result.insertId : true)
+                }
+            })
+        })
+    },
+    
+    editData : function editData (query){
+        return new Promise((resolve,reject)=>{
+            con.query(query, (err, result) =>{
+                if(err){
+                    con.rollback();
+                    reject(err);
+                }
+                else{                    
+                    resolve(result);
+                }
+            })
+        })
+    },
+    
+    delData : function delData(query){
+        return new Promise((resolve,reject)=>{
+            con.query(query, (err, result) =>{
+                if(err){
+                    con.rollback();
+                    reject(err)
+                }else{                
+                    resolve(result)
+                }
+            })
+        })
+    },
+    
+    getData : function getData(query){
+        return new Promise((resolve, reject)=>{
+            con.query(query, (err, result) =>{
+                if(err){                                        
+                    con.rollback();
+                    reject(err);
+                }
+                else{                
+                    resolve(result);
+                }
+            })
+        })
+    }    
+}
+
+
+
+/*const db = require('mysql');
 let createQuery = require('./createQuery');
 
 let con = db.createConnection({
@@ -50,62 +111,4 @@ let valores = [["'neji'","'enfermagem'","'solteiro'"],
 
 let colunas = ['nome','area','estadocivil'];
 
-let tabela = 'pessoa';
-
-
-function addData (query,getId = false){
-
-    con.query(query, (err, result) => {
-        if(err){
-            console.log(err);
-            con.rollback()
-            return false;
-        }
-        else{
-            console.log(result.insertId);
-           return getId == true ? result.insertId : true;
-        }
-    })
-
-}
-
-function editData (query){
-
-    con.query(query, (err, result) =>{
-        if(err){
-            con.rollback();
-            return false;
-        }
-        else{
-            console.log(result);
-            return true;
-        }
-    })
-}
-
-function delData(query){
-
-    con.query(query, (err, result) =>{
-        if(err){
-            con.rollback();
-            return false;
-        }else{
-            console.log(result);
-            return true;
-        }
-    })
-}
-
-function getData(query){
-    con.query(query, (err, result) =>{
-        if(err){      
-            console.log(err);                  
-            con.rollback();
-            return false;
-        }
-        else{
-            console.log(result);
-            return result.RowDataPacket;
-        }
-    })
-}
+let tabela = 'pessoa';*/
