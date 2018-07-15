@@ -25,13 +25,15 @@ module.exports = {
         })        
     },
 
-    get : function(id){
+    get : function(id = false){
 
         let colunas = new FuncionarioModel().getColuns();
+        colunas.unshift('fun_id');
+
         let tabela = TABELA;
 
         return new Promise((resolve, reject) =>{
-            createQuery.get(colunas, tabelas, id)
+            createQuery.get(colunas, tabela, id)
             .then((query) =>{
                 saveDados.getData(query)
                 .then((result) => resolve(result))

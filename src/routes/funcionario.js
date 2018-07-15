@@ -8,12 +8,16 @@ router.post('/', function(req, res, next){
     let obj = req.body;
     console.log(obj);
     funcionarioController.add(obj)
-    .then((id) => res.sendStatus(id));
+    .then((id) => res.send(id.toString()));
 
 });
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  funcionarioController.get()
+  .then((result)=>{
+     res.json(result);
+  })
+  .catch((err) => console.log(err))
 });
 
 

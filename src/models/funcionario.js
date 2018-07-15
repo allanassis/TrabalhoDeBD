@@ -4,12 +4,14 @@ let Funcionario = function Funcionario(obj){
     const COLUNAS = ['fun_nome','fun_cpf','fun_tipo','fun_dataAdmissao','fun_senhaAcesso'];    
 
     //let fun_id = obj.fun_id;
-    let fun_nome = obj.fun_nome;
-    let fun_cpf = obj.fun_cpf;
-    let fun_tipo = obj.fun_tipo;
-    let fun_dataAdmissao = obj.fun_dataAdmissao;
-    let fun_senhaAcesso = obj.fun_senhaAcesso;
-
+    if(obj){
+        let fun_nome = obj.fun_nome;
+        let fun_cpf = obj.fun_cpf;
+        let fun_tipo = obj.fun_tipo;
+        let fun_dataAdmissao = obj.fun_dataAdmissao;
+        let fun_senhaAcesso = obj.fun_senhaAcesso;
+    }
+    
     this.getColuns = function(){
         return COLUNAS;
     }

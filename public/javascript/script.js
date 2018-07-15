@@ -2,8 +2,29 @@ $(document).ready(function(){
 
     $("#div_cadastrar").hide();
 
-    $.get('/funcionarios', function(err, result){
-        
+    $.get('/funcionario', function(result,err){
+        for(let func in result){
+            $("#tabela_funcionarios").append(`              
+                <tr>
+                    <th>${result[func].fun_id}</th>
+                    <th>${result[func].fun_nome}</th>
+                    <th>${result[func].fun_cpf}</th> 
+                    <th>${result[func].fun_tipo}</th>
+                    <th>${result[func].fun_dataAdmissao}</th>
+                    <th style="display:none">${result[func].fun_senhaAcesso}</th>
+                </tr>`);
+
+        }    
+    })
+
+    $("#btn_div_cadastrar").click(function(){
+        $("#div_funcionarios").hide();
+        $("#div_cadastrar").show();
+    })
+
+    $("#btn_div_funcionarios").click(function(){        
+        $("#div_cadastrar").hide();
+        $("#div_funcionarios").show();
     })
 
     $("#cli_cadastrar").click(function(){
