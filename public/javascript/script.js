@@ -4,7 +4,8 @@ $(document).ready(function(){
     $("#btn_fun_editar").hide();
     $("#div_funcionarios").hide();
     $("#div_clientes").hide()
-
+    $("#div_produtos").hide()
+    $("#div_produto_compra").hide()
     
     $.get('/funcionario', function(result,err){
         carregaTabelaFuncionario(result);
@@ -17,12 +18,40 @@ $(document).ready(function(){
           
     })
 
+    $.get('/produto',function(result, err){
+        carregaTabelaProduto(result);
+        carregaComboProduto(result);
+    })
 
+    $.get('/compra',function(result, err){
+        console.log(result);
+
+    })
+
+    $("#btn_add_pro").click(function(){
+        $("#div_funcionarios").hide();
+       // $("#div_compra").hide();
+        $("#div_clientes").hide()
+        $("#div_produto").hide();
+        $("#div_cadastrar").hide();
+        $("#div_produto_compra").show()        
+    })
+
+    $("#btn_div_produto").click(function(){
+        $("#div_funcionarios").hide();
+        $("#div_compra").hide();
+        $("#div_clientes").hide()
+        $("#div_produto").show()
+        $("#div_produto_compra").hide()
+        $("#div_cadastrar").hide();
+    })
 
     $("#btn_div_cadastrar").click(function(){
         $("#div_funcionarios").hide();
         $("#div_compra").hide();
         $("#div_clientes").hide()
+        $("#div_produto").hide()
+        $("#div_produto_compra").hide()
         $("#div_cadastrar").show();
     })
 
@@ -30,6 +59,8 @@ $(document).ready(function(){
         $("#div_cadastrar").hide();
         $("#div_compra").hide();
         $("#div_clientes").hide()
+        $("#div_produto").hide()
+        $("#div_produto_compra").hide()
         $("#div_funcionarios").show();
 
         $("#tabela_funcionarios tbody > tr > th > button").click(function(){
@@ -81,6 +112,8 @@ $(document).ready(function(){
         $("#div_funcionarios").hide();
         $("#div_compra").hide();        
         $("#div_cadastrar").hide();
+        $("#div_produto").hide()
+        $("#div_produto_compra").hide()
         $("#div_clientes").show();
 
         $("#tabela_clientes tbody > tr > th > button").click(function(){
@@ -133,7 +166,9 @@ $(document).ready(function(){
     $("#btn_div_compra").click(function(){        
         $("#div_cadastrar").hide();        
         $("#div_funcionarios").hide();
-        $("#div_clientes").hide()
+        $("#div_clientes").hide();
+        $("#div_produto").hide();
+        $("#div_produto_compra").hide()
         $("#div_compra").show();
     })
 
@@ -176,6 +211,28 @@ $(document).ready(function(){
             alert(result);
         })
     })
+
+    function carregaComboProduto(produtos) {
+        for (let prop in produtos) {
+            $("#select_produtos_compra").append(`
+                <option>${produtos[prop].pro_descricao}</option>
+            `);
+        }
+    }
+
+    function carregaTabelaProduto(pro){
+        for(let prop in pro){
+            $("#tabela_produtos > tbody").append(`              
+                <tr id="tr_pro_${pro[prop].pro_id}">
+                    <th class="th_id">${pro[prop].pro_descricao}</th>
+                    <th class="th_valor">${pro[prop].pro_valor}</th>
+                    <th class="th_saldoEstoque">${pro[prop].pro_saldoEstoque}</th> 
+
+                    <th><button id="btn_edit_produto_${pro[prop].pro_id}" value="${pro[prop].pro_id}">edit</button></th>
+                    <th><button id="btn_del_produto_${pro[prop].pro_id}" value="${pro[prop].pro_id}">del</button></th>
+                </tr>`);            
+        }
+    }
 
     function carregaComboFuncionario(fun){
         for(let prop in fun){

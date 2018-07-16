@@ -11,11 +11,13 @@
     <button id="btn_div_cadastrar">cadastrar</button>
     <button id="btn_div_funcionarios">funcionarios</button>
     <button id="btn_div_clientes">clientes</button>
+    <button id="btn_div_produtos">produtos</button>
     <button id="btn_div_compra">compra</button>
 
     <% include partials/cadastrar %>
     <% include partials/funcionarios %>
     <% include partials/clientes %>
+    <% include partials/produtos %>
 
     <div id="div_compra">
       <h3>compra</h3>
@@ -25,21 +27,28 @@
       <select id="select_funcionario">
           <option>funcionario</option>
         </select>
-        <div id="div_funcionarios">      
+        <div id="div_compra">      
             <table id="tabela_compra">
+              <tbody>
                 <tr>
-                  <th>id</th>
-                  <th>Nome</th>
-                  <th>CPF</th> 
-                  <th>Tipo</th>
-                  <th>Data de Admissão</th>
-                  <th>Senha de Acesso</th>
+                  <th>Descricao</th>
+                  <th>Quantidade</th>
+                  <th>Preço</th> 
+                  <th>Sub Total</th>
+                  <th>Valot Total</th>                  
                 </tr>
-  
-              </table>
+              </tbody>
+            </table>
         </div>
-        <button id="btn_add_produto">adicionar</button>
-        
+        <button id="btn_add_pro">adicionar</button>
+        <div id="div_produto_compra">
+          <select id="select_produtos_compra">
+
+          </select>
+          <input id="pro_valor_compra" type="text" readonly>
+          <input id="pro_quantidade_compra" type="number">
+          <button id="btn_add_pro_compra" >add</button>
+        </div>
 
     </div>
 

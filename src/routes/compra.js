@@ -13,7 +13,11 @@ router.post('/', function(req, res, next){
 });
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  compraController.get()
+  .then((result)=>{
+     res.json(result);
+  })
+  .catch((err) => console.log(err))
 });
 
 

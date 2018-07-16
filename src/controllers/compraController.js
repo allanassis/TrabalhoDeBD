@@ -31,7 +31,7 @@ module.exports = {
         let tabela = TABELA;
 
         return new Promise((resolve, reject) =>{
-            createQuery.get(colunas, tabelas, id)
+            createQuery.get(colunas, tabela, id)
             .then((query) =>{
                 saveDados.getData(query)
                 .then((result) => resolve(result))

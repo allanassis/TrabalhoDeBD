@@ -13,6 +13,7 @@ let users = require('./src/routes/users');
 let cliente = require('./src/routes/cliente');
 let funcionario = require('./src/routes/funcionario');
 let produto = require('./src/routes/produto');
+let compra = require('./src/routes/compra');
 
 let app = express();
 
@@ -45,6 +46,7 @@ app.use('/', index);
 app.use('/cliente', cliente);
 app.use('/funcionario', funcionario);
 app.use('/produto', produto);
+app.use('/compra', compra);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
