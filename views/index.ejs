@@ -3,7 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-
+    <link rel='stylesheet' href='../bootstrap/dist/css/bootstrap.css' />
   </head>
   <body>
     <h1><%= title %></h1>
@@ -31,20 +31,21 @@
             <table id="tabela_compra">
               <tbody>
                 <tr>
+                  <th>id</th>
                   <th>Descricao</th>
                   <th>Quantidade</th>
                   <th>Preço</th> 
-                  <th>Sub Total</th>
-                  <th>Valot Total</th>                  
+                  <th>Sub Total</th>                 
                 </tr>
               </tbody>
             </table>
+            <input id="valorTotal" readonly></input>
+            <button id="btn_realizar_compra">comprar</button>
         </div>
         <button id="btn_add_pro">adicionar</button>
         <div id="div_produto_compra">
-          <select id="select_produtos_compra">
-
-          </select>
+        <select id="select_produtos_compra">
+        </select>
           <input id="pro_valor_compra" type="text" readonly>
           <input id="pro_quantidade_compra" type="number">
           <button id="btn_add_pro_compra" >add</button>
@@ -53,6 +54,11 @@
     </div>
 
     <script src="../jquery/dist/jquery.min.js"></script>
+    <script src="../bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../javascript/funcionarios.js"></script>
+    <script src="../javascript/clientes.js"></script>
+    <script src="../javascript/produtos.js"></script>
+    <script src="../javascript/cadastrar.js"></script>
     <script src="../javascript/script.js"></script>
   </body>
 </html>

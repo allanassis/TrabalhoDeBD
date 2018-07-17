@@ -45,5 +45,17 @@ router.put('/', function(req, res, next) {
   .catch((err) => console.log(err))
 });
 
+router.delete('/', (req, res, next) => {
+
+  obj = {
+    value : req.body.id,
+    name : req.body.idname
+  }
+  clienteController.del(obj)
+  .then((result) =>{
+     res.json(result);
+  })
+  .catch((err) => console.log(err))
+});
 
 module.exports = router;

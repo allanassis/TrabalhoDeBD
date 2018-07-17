@@ -20,6 +20,16 @@ router.get('/', function(req, res, next) {
   .catch((err) => console.log(err))
 });
 
+router.get('/autenticar', function(req, res, next) {
+  let senha = req.query.senha;
+
+  funcionarioController.getAutenticacao(senha)
+  .then((result)=>{
+     res.json(result);
+  })
+  .catch((err) => console.log(err))
+});
+
 router.put('/', function(req, res, next) {
   
   let fun = {
@@ -36,6 +46,19 @@ router.put('/', function(req, res, next) {
   
   funcionarioController.edit(fun, id)
   .then((result)=>{
+     res.json(result);
+  })
+  .catch((err) => console.log(err))
+});
+
+router.delete('/', (req, res, next) => {
+
+  obj = {
+    value : req.body.id,
+    name : req.body.idname
+  }
+  funcionarioController.del(obj)
+  .then((result) =>{
      res.json(result);
   })
   .catch((err) => console.log(err))

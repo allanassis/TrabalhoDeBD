@@ -69,6 +69,23 @@ module.exports = {
                 .catch((err) => reject(err))
             })
         })        
+    },
+
+    getAutenticacao : function(senha){
+
+        let tabela = TABELA;
+
+        let query = `SELECT * 
+                     FROM ${TABELA}
+                     WHERE fun_senhaAcesso = ${senha}`;
+
+        return new Promise((resolve, reject)=>{
+            con.query(query,(err, result) =>{
+                console.log(err);
+                console.log(result);
+                resolve(result);
+            })
+        })        
     }
 
 }

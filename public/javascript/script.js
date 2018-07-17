@@ -1,27 +1,14 @@
 $(document).ready(function(){
 
+    let compraitens = [];
+    let valorTotal = 0;
+
     $("#div_cadastrar").hide();
     $("#btn_fun_editar").hide();
     $("#div_funcionarios").hide();
     $("#div_clientes").hide()
     $("#div_produtos").hide()
     $("#div_produto_compra").hide()
-    
-    $.get('/funcionario', function(result,err){
-        carregaTabelaFuncionario(result);
-        carregaComboFuncionario(result);
-    })
-
-    $.get('/cliente', function(result,err){
-        carregaTabelaCliente(result);
-        carregaComboCliente(result); 
-          
-    })
-
-    $.get('/produto',function(result, err){
-        carregaTabelaProduto(result);
-        carregaComboProduto(result);
-    })
 
     $.get('/compra',function(result, err){
         console.log(result);
@@ -36,254 +23,84 @@ $(document).ready(function(){
         $("#div_cadastrar").hide();
         $("#div_produto_compra").show()        
     })
-
-    $("#btn_div_produto").click(function(){
-        $("#div_funcionarios").hide();
-        $("#div_compra").hide();
-        $("#div_clientes").hide()
-        $("#div_produto").show()
-        $("#div_produto_compra").hide()
-        $("#div_cadastrar").hide();
-    })
-
-    $("#btn_div_cadastrar").click(function(){
-        $("#div_funcionarios").hide();
-        $("#div_compra").hide();
-        $("#div_clientes").hide()
-        $("#div_produto").hide()
-        $("#div_produto_compra").hide()
-        $("#div_cadastrar").show();
-    })
-
-    $("#btn_div_funcionarios").click(function(){        
-        $("#div_cadastrar").hide();
-        $("#div_compra").hide();
-        $("#div_clientes").hide()
-        $("#div_produto").hide()
-        $("#div_produto_compra").hide()
-        $("#div_funcionarios").show();
-
-        $("#tabela_funcionarios tbody > tr > th > button").click(function(){
-
-            let button = $(this);
-
-            if(button.text() == "edit"){
-
-                $("#fun_nome").val($("#tr_fun_" + button.val() + " > .th_nome").text());
-                $("#fun_cpf").val($("#tr_fun_" + button.val() + " > .th_cpf").text());
-                $("#fun_tipo").val($("#tr_fun_" + button.val() + " > .th_tipo").text());
-                $("#fun_dataAdmissao").val($("#tr_fun_" + button.val() + " > .th_dataAdmissao").text().slice(0,10));
-                $("#fun_senhaAcesso").val($("#tr_fun_" + button.val() + " > .th_senhaAcesso").text());                
-
-                $("#form_cli").hide()
-                $("#form_pro").hide()                
-                $("#div_cadastrar").show();
-                $("#btn_fun_editar").show();
-                $("#form_fun").show();
-
-                $("#btn_fun_editar").click(function(){
-                    
-                    let obj = {
-                        id : button.val(),
-                        idname : 'fun_id',
-                        nome : $("#fun_nome").val(),
-                        cpf : $("#fun_cpf").val(),
-                        tipo : $("#fun_tipo").val(),
-                        dataAdmissao : $("#fun_dataAdmissao").val(),
-                        senhaAcesso : $("#fun_senhaAcesso").val(),
-                    }
-
-                    $.ajax({
-                        url: '/funcionario',
-                        data: obj,
-                        dataType: 'array',
-                        type: 'PUT',
-                        success: function(response) {
-                          console.log(response)
-                        }
-                     });
-                })    
-            }
-        })
-
-    })
-
-    $("#btn_div_clientes").click(function(){
-        $("#div_funcionarios").hide();
-        $("#div_compra").hide();        
-        $("#div_cadastrar").hide();
-        $("#div_produto").hide()
-        $("#div_produto_compra").hide()
-        $("#div_clientes").show();
-
-        $("#tabela_clientes tbody > tr > th > button").click(function(){
-
-            let button = $(this);
-
-            if(button.text() == "edit"){
-
-                $("#cli_nome").val($("#tr_cli_" + button.val() + " > .th_nome").text());
-                $("#cli_cpf").val($("#tr_cli_" + button.val() + " > .th_cpf").text());
-                $("#cli_endereco").val($("#tr_cli_" + button.val() + " > .th_endereco").text());
-                $("#cli_dataNascimento").val($("#tr_cli_" + button.val() + " > .th_dataNascimento").text().slice(0,10));
-                $("#cli_telefone1").val($("#tr_cli_" + button.val() + " > .th_telefone1").text());
-                $("#cli_telefone2").val($("#tr_cli_" + button.val() + " > .th_telefone2").text());                
-
-                $("#form_cli").show()
-                $("#form_pro").hide()                
-                $("#div_cadastrar").show();
-                $("#btn_cli_editar").show();
-                $("#form_fun").hide();
-
-                $("#btn_cli_editar").click(function(){
-                    
-                    let obj = {
-                        id : button.val(),
-                        idname : 'cli_id',
-                        nome : $("#cli_nome").val(),
-                        cpf : $("#cli_cpf").val(),
-                        endereco : $("#cli_endereco").val(),
-                        dataNascimento : $("#cli_dataNascimento").val(),
-                        telefone1 : $("#cli_telefone1").val(),
-                        telefone2 : $("#cli_telefone2").val(),
-                    }
-
-                    //Salert(obj);
-
-                    $.ajax({
-                        url: '/cliente',
-                        data: obj,                        
-                        type: 'PUT',
-                        success: function(response) {
-                          console.log(response)
-                        }
-                     });
-                })    
-            }
-        })
-    })
+    
 
     $("#btn_div_compra").click(function(){        
         $("#div_cadastrar").hide();        
         $("#div_funcionarios").hide();
         $("#div_clientes").hide();
-        $("#div_produto").hide();
+        $("#div_produtos").hide();
         $("#div_produto_compra").hide()
         $("#div_compra").show();
     })
 
-    $("#btn_cli_cadastrar").click(function(){
-        let obj = {
-            cli_nome : $("#cli_nome").val(),
-            cli_cpf : $("#cli_cpf").val(),
-            cli_endereco : $("#cli_endereco").val(),
-            cli_dataNascimento : $("#cli_dataNascimento").val(),
-            cli_telefone1 : $("#cli_telefone1").val(),
-            cli_telefone2 : $("#cli_telefone2").val()
-        }
-        console.log(obj);
-        $.post('/cliente', obj, function(err, result){
-            alert(result);
-        })
-    })
-    $("#btn_fun_cadastrar").click(function(){
-        let obj = {
-            fun_nome : $("#fun_nome").val(),
-            fun_cpf : $("#fun_cpf").val(),
-            fun_tipo : $("#fun_tipo").val(),
-            fun_dataAdmissao : $("#fun_dataAdmissao").val(),
-            fun_senhaAcesso : $("#fun_senhaAcesso").val(),            
-        }
-        console.log(obj);
-        $.post('/funcionario', obj, function(err, result){
-            alert(result);
-        })
-    })
+    $('#select_produtos_compra').on('change', function() {
 
-    $("#btn_pro_cadastrar").click(function(){
-        let obj = {
-            pro_descricao : $("#pro_descricao").val(),
-            pro_valor : Number.parseFloat($("#pro_valor").val().trim()),
-            pro_saldoEstoque : Number.parseInt($("#pro_saldoEstoque").val())
-        }
-        console.log(obj);
-        $.post('/produto', obj, function(err, result){
-            alert(result);
-        })
-    })
+        $("#pro_valor_compra").val($("#tr_pro_" + this.value + " > .th_valor").text());
+        $("#pro_quantidade_compra").attr({'max' :  $("#tr_pro_" + this.value + " > .th_saldoEstoque").text()});
 
-    function carregaComboProduto(produtos) {
-        for (let prop in produtos) {
-            $("#select_produtos_compra").append(`
-                <option>${produtos[prop].pro_descricao}</option>
-            `);
-        }
-    }
+      })      
 
-    function carregaTabelaProduto(pro){
-        for(let prop in pro){
-            $("#tabela_produtos > tbody").append(`              
-                <tr id="tr_pro_${pro[prop].pro_id}">
-                    <th class="th_id">${pro[prop].pro_descricao}</th>
-                    <th class="th_valor">${pro[prop].pro_valor}</th>
-                    <th class="th_saldoEstoque">${pro[prop].pro_saldoEstoque}</th> 
+      $("#btn_add_pro_compra").click(function(){
 
-                    <th><button id="btn_edit_produto_${pro[prop].pro_id}" value="${pro[prop].pro_id}">edit</button></th>
-                    <th><button id="btn_del_produto_${pro[prop].pro_id}" value="${pro[prop].pro_id}">del</button></th>
-                </tr>`);            
-        }
-    }
+        if(Number.parseInt($("#tr_pro_" + $("#select_produtos_compra option:selected").val() + " > .th_saldoEstoque").text())
+            > Number.parseInt($("#pro_quantidade_compra").val())){
 
-    function carregaComboFuncionario(fun){
-        for(let prop in fun){
+                let obj = {
+                    id : $("#select_produtos_compra option:selected").val(),
+                    descricao : $("#select_produtos_compra option:selected").text(),
+                    quantidade : $("#pro_quantidade_compra").val(),
+                    valor : $("#pro_valor_compra").val(),
+                    subTotal : (Number.parseInt( $("#pro_quantidade_compra").val()) * Number.parseFloat($("#pro_valor_compra").val())).toFixed(2)
+                }
+                compraitens.push(obj);
+                valorTotal += Number.parseFloat(obj.subTotal);
 
-            $("#select_funcionario").append(`                              
-            <option value="${fun[prop].fun_id}">
-                ${fun[prop].fun_nome}
-            </option>`);
-        }
-    }
+                $("#valorTotal").val(valorTotal);
 
-    function carregaTabelaFuncionario(fun){
-        for(let prop in fun){
-            $("#tabela_funcionarios > tbody").append(`              
-                <tr id="tr_fun_${fun[prop].fun_id}">
-                    <th class="th_id">${fun[prop].fun_id}</th>
-                    <th class="th_nome">${fun[prop].fun_nome}</th>
-                    <th class="th_cpf">${fun[prop].fun_cpf}</th> 
-                    <th class="th_tipo">${fun[prop].fun_tipo}</th>
-                    <th class="th_dataAdmissao">${fun[prop].fun_dataAdmissao}</th>
-                    <th class="th_senhaAcesso" style="display:none">${fun[prop].fun_senhaAcesso}</th>
-                    <th><button id="btn_edit_funcionario_${fun[prop].fun_id}" value="${fun[prop].fun_id}">edit</button></th>
-                    <th><button id="btn_del_funcionario_${fun[prop].fun_id}" value="${fun[prop].fun_id}">del</button></th>
-                </tr>`);            
-        }
-    }
-
+                $("#tabela_compra > tbody").append(`
+                <tr id="tr_${obj.id}">
+                    <th>${obj.id}</th>
+                    <th>${obj.descricao}</th>
+                    <th>${obj.quantidade}</th>
+                    <th>${obj.valor}</th>
+                    <th th_subTotal_${obj.id}>${obj.subTotal}</th>
+                </tr>
+                `)
+            }
+            else{
+                alert("Estoque insuficiente")
+            }
     
-    function carregaComboCliente(cli){
-        for(let prop in cli){
-            $("#select_cliente").append(`                              
-            <option value="${cli[prop].cli_id}">
-                ${cli[prop].cli_nome}
-            </option>`);
-        }
-    }
+        $("#pro_quantidade_compra").val("")
+    })
 
-    function carregaTabelaCliente(cli){
-        for(let prop in cli){
-            $("#tabela_clientes > tbody").append(`              
-            <tr id="tr_cli_${cli[prop].cli_id}">
-                <th class="th_id">${cli[prop].cli_id}</th>
-                <th class="th_nome">${cli[prop].cli_nome}</th>
-                <th class="th_cpf">${cli[prop].cli_cpf}</th> 
-                <th class="th_endereco">${cli[prop].cli_endereco}</th>
-                <th class="th_dataNascimento">${cli[prop].cli_dataNascimento}</th>
-                <th class="th_telefone1">${cli[prop].cli_telefone1}</th>
-                <th class="th_telefone2">${cli[prop].cli_telefone2}</th>
-                <th><button id="btn_edit_cliente_${cli[prop].cli_id}" value="${cli[prop].cli_id}">edit</button></th>
-                <th><button id="btn_del_cliente_${cli[prop].cli_id}" value="${cli[prop].cli_id}">del</button></th>
-            </tr>`);
+    $("#btn_realizar_compra").click(function(){
+        let objPost = {
+            com_idFuncionario : $("#select_funcionario option:selected").val(),
+            com_idCliente : $("#select_cliente option:selected").val(),
+            com_data : (new Date()).toLocaleString('en-us'),
+            com_valorTotal : $("#valorTotal").val(),            
         }
-    }
+        console.log("clicou");
+
+        $.post('/compra', objPost, function(result, err){
+            console.log(result);
+            console.log(compraitens);
+            for(let obj in compraitens){
+                let objPost = {
+                    coi_id : result,
+                    coi_idProduto : compraitens[obj].id,
+                    coi_quantidade : compraitens[obj].quantidade,
+                    coi_valorUnitario : compraitens[obj].valor
+                }
+                $.post('/compraItem', objPost, function(err, result){
+                    console.log(err);
+                    console.log(result);
+                })
+            }
+
+        })
+    })
+
 })
